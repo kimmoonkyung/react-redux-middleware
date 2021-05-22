@@ -17,7 +17,7 @@ function PostContainer({ postId }) {
     if (error) return <div>에러 발생</div>;
     if (!data) return null;
 
-    return <Post />;
+    return <Post post={data} />;
 }
 
 export default PostContainer;
