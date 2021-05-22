@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from '../components/Post';
-import { getPost } from '../modules/posts';
+import { clearPost, getPost } from '../modules/posts';
 
 // 라우터를 통해 postId를 받아온다.
 function PostContainer({ postId }) {
@@ -11,6 +11,9 @@ function PostContainer({ postId }) {
 
     useEffect(() => {
         dispatch(getPost(postId));
+        return () => {
+            dispatch(clearPost());
+        };
     }, [postId, dispatch]);
 
     if (loading) return <div>로딩중...</div>;
