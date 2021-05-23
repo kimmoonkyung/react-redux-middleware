@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Post from '../components/Post';
 import { reducerUtils } from '../lib/asyncUtils';
-import { getPost } from '../modules/posts';
+import { getPost, goToHome } from '../modules/posts';
 
 // 라우터를 통해 postId를 받아온다.
 function PostContainer({ postId }) {
@@ -21,7 +21,12 @@ function PostContainer({ postId }) {
     if (error) return <div>에러 발생</div>;
     if (!data) return null;
 
-    return <Post post={data} />;
+    return (
+        <>
+            <button onClick={() => dispatch(goToHome())}>홈으로 이동</button>
+            <Post post={data} />
+        </>
+    );
 }
 
 export default PostContainer;

@@ -23,6 +23,11 @@ export const getPost = createPromiseThunkById(
     GET_POST_BY_ID,
     postsAPI.getPostById,
 );
+export const goToHome =
+    () =>
+    (dispatch, getState, { history }) => {
+        history.push('/');
+    };
 
 export const clearPost = () => ({ type: CLEAR_POST });
 
