@@ -1,9 +1,7 @@
 import * as postsAPI from '../api/posts';
 import {
     createPromiseThunk,
-    createPromiseThunkById,
     handleAsyncActions,
-    handleAsyncActionsById,
     reducerUtils,
 } from '../lib/asyncUtils';
 
@@ -18,22 +16,20 @@ const GET_POST_BY_ID_ERROR = 'posts/GET_POST_BY_ID_ERROR';
 
 const CLEAR_POST = 'CLEAR_POST';
 
+// action 생성 함수, 생략 가능 -> thunk에서 직접 작성하여 디스패치하는 형태로 작성해도 상관 없음
 export const getPosts = createPromiseThunk(GET_POSTS, postsAPI.getPosts);
-export const getPost = createPromiseThunkById(
-    GET_POST_BY_ID,
-    postsAPI.getPostById,
-);
+export const getPost = createPromiseThunk(GET_POST_BY_ID, postsAPI.getPostById);
 
 export const clearPost = () => ({ type: CLEAR_POST });
 
 // 기본 상태
 const initialState = {
     posts: reducerUtils.initial(),
-    post: {},
+    post: reducerUtils.initial(),
 };
 
 const getPostsReducer = handleAsyncActions(GET_POSTS, 'posts', true);
-const getPostByIdReducer = handleAsyncActionsById(GET_POST_BY_ID, 'post', true);
+const getPostByIdReducer = handleAsyncActions(GET_POST_BY_ID, 'post');
 
 // 리듀서 작성
 export default function posts(state = initialState, action) {
